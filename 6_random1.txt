@@ -1,0 +1,56 @@
+#
+# 6x6x6 Cube definition :
+#
+#   A
+# B C D
+#   E
+#   F
+
+
+#A
+bbbbbb
+bbbbbb
+bbbbbb
+bbbbbb
+bbbbbb
+bbbbbb
+
+#B
+kkkokk
+kkkrkk
+kkgrkk
+kkgkkk
+ggrrrr
+goyggg
+
+#C
+rrokrr
+rrokrr
+oorrgg
+gyoygg
+gogygg
+ogkyog
+
+#D
+yyyyyy
+yyyyyy
+yyoyyr
+ooygyo
+ogrrog
+rrrkgo
+
+#E
+kkogyy
+kkooyy
+rkkogy
+oorkor
+kkggyy
+kkygyy
+
+#F
+rrrogg
+ogkgrr
+gyokgy
+rrgyog
+oorroo
+oorroo

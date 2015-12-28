@@ -6,6 +6,7 @@
 Solves rubik's cube given in parameter
 """
 
+import model
 import pprint
 import argparse
 
@@ -25,5 +26,6 @@ def parse_arguments():
 if __name__ == "__main__":
     print("Going to solve Rubik's cube ...")
     options = parse_arguments()
-    pprint.pprint(options)
+    cube = model.Cube(options["filename"])
+    print(cube)
     print("Done. (well not yet ;)")
