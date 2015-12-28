@@ -1,0 +1,38 @@
+#
+# Cube definition :
+#
+#   A
+# B C D
+#   E
+#   F
+
+
+#A
+rro
+roo
+ryy
+
+#B
+yob
+yyw
+bbw
+
+#C
+ggg
+ybb
+bgw
+
+#D
+rbb
+ggb
+gro
+
+#E
+rro
+orw
+wwy
+
+#F
+oog
+gww
+wyy
