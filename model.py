@@ -23,6 +23,19 @@ C1C2C3
 C4C5C6
 C7C8C9
 ...
+
+
+Rotations are as following :
+         ___              ___              ___
+       / A /|           / A /|     Z1 →  / A /|
+      /__ / |          /__ / |    Zn →  /__ / |
+X1 → |   |D |         |   |D |         |   |D |
+X2 → | C | /          | C | /          | C | /
+Xn → |___|/           |___|/           |___|/
+                       ↑↑↑
+                       ||Yn
+                       |Y2
+                       Y1
 """
 
 import re
@@ -34,6 +47,7 @@ class Cube():
     """
     def __init__(self, from_file):
         self.faces = {"A":[], "B":[], "C":[], "D":[], "E":[], "F":[]}
+        self.highlights = {"A":[], "B":[], "C":[], "D":[], "E":[], "F":[]}
         self.n = None
 
         faces = ["A", "B", "C", "D", "E", "F"]
@@ -57,25 +71,43 @@ class Cube():
                     raise Exception("Error: Found too much data lines in '{}'. Expected {}x6 data lines.".format(
                         from_file, self.n
                     ))
-                self.faces[faces[current_face]].append(re.findall(r".", l))
+                self.faces[faces[current_face]].append([c for c in l])
                 current_face_line += 1
                 if current_face_line == self.n:
                     current_face_line = 0
                     current_face += 1
+        self.clear_highlights()
+
+    def clear_highlights(self):
+        self.highlights = dict([(ltr, [[False for i in range(self.n)] for j in range(self.n)]) for ltr in "ABCDEF"])
+        # points = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
+        # for ltr in "ABCDEF":
+        #     for p in points:
+        #         self.highlights[ltr][p[0]][p[1]] = True
 
     def __str__(self):
+        def render_line(ltr, i):
+            line = ""
+            for j in range(self.n):
+                if self.highlights[ltr][i][j]:
+                    line += "\033[0;1;93m{}\033[0m".format(self.faces[ltr][i][j])
+                else:
+                    line += self.faces[ltr][i][j]
+            return line
+
         white = " " * self.n
         s = ""
         for i in range(self.n):
-            s += "{white} {a}\n".format(white=white, a="".join(self.faces["A"][i]))
+            s += "{white} {a}\n".format(white=white, a=render_line("A", i))
         s += "\n"
         for i in range(self.n):
-            s += "{b} {c} {d}\n".format(b="".join(self.faces["B"][i]), c="".join(self.faces["C"][i]), d="".join(self.faces["D"][i]))
+            s += "{b} {c} {d}\n".format(b=render_line("B", i), c=render_line("C", i), d=render_line("D", i))
         s += "\n"
         for i in range(self.n):
-            s += "{white} {e}\n".format(white=white, e="".join(self.faces["E"][i]))
+            s += "{white} {e}\n".format(white=white, e=render_line("E", i))
         s += "\n"
         for i in range(self.n):
-            s += "{white} {f}\n".format(white=white, f="".join(self.faces["F"][i]))
+            s += "{white} {f}\n".format(white=white, f=render_line("F", i))
         s += "\n"
+        self.clear_highlights()
         return s

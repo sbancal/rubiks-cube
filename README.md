@@ -8,4 +8,5 @@ You can solve it with :
 
 ~~~ bash
 ./solve_rubik.py random1.txt
+./solve_rubik.py 6_random1.txt
 ~~~
