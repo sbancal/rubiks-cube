@@ -39,6 +39,7 @@ Xn → |___|/           |___|/           |___|/
 """
 
 import re
+import numpy as np
 
 class Cube():
     """
@@ -46,13 +47,14 @@ class Cube():
         + self.n : the dimension
     """
     def __init__(self, from_file):
-        self.faces = {"A":[], "B":[], "C":[], "D":[], "E":[], "F":[]}
-        self.highlights = {"A":[], "B":[], "C":[], "D":[], "E":[], "F":[]}
+        self.faces = {"A":None, "B":None, "C":None, "D":None, "E":None, "F":None}
+        self.highlights = {"A":None, "B":None, "C":None, "D":None, "E":None, "F":None}
         self.n = None
 
         faces = ["A", "B", "C", "D", "E", "F"]
-        current_face = 0
+        current_face_id = 0
         current_face_line = 0
+        current_face_data = ""
         with open(from_file, "r") as f:
             for line in f.readlines():
                 l = re.sub(r"#.*$", "", line).strip()
@@ -67,32 +69,38 @@ class Cube():
                                 from_file, self.n, len(l)
                             ))
 
-                if current_face == 6:
+                if current_face_id == 6:
                     raise Exception("Error: Found too much data lines in '{}'. Expected {}x6 data lines.".format(
                         from_file, self.n
                     ))
-                self.faces[faces[current_face]].append([c for c in l])
+                current_face_data += l
                 current_face_line += 1
                 if current_face_line == self.n:
+                    self.faces[faces[current_face_id]] = np.array(re.findall(r'.', current_face_data)).reshape(self.n, self.n)
                     current_face_line = 0
-                    current_face += 1
+                    current_face_id += 1
+                    current_face_data = ""
         self.clear_highlights()
 
     def clear_highlights(self):
-        self.highlights = dict([(ltr, [[False for i in range(self.n)] for j in range(self.n)]) for ltr in "ABCDEF"])
-        # points = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5))
+        for ltr in "ABCDEF":
+            self.highlights[ltr] = np.full((self.n, self.n), False)
+        # points = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), )
         # for ltr in "ABCDEF":
         #     for p in points:
-        #         self.highlights[ltr][p[0]][p[1]] = True
+        #         try:
+        #             self.highlights[ltr][p[0],p[1]] = True
+        #         except IndexError:
+        #             pass
 
     def __str__(self):
         def render_line(ltr, i):
             line = ""
             for j in range(self.n):
-                if self.highlights[ltr][i][j]:
-                    line += "\033[0;1;93m{}\033[0m".format(self.faces[ltr][i][j])
+                if self.highlights[ltr][i,j]:
+                    line += "\033[0;1;93m{}\033[0m".format(self.faces[ltr][i,j])
                 else:
-                    line += self.faces[ltr][i][j]
+                    line += self.faces[ltr][i,j]
             return line
 
         white = " " * self.n
