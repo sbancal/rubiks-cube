@@ -200,3 +200,135 @@ yzA HIJ VUT
     Z12
 
 ''')
+
+    def test_rotate_y0T(self):
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('y', 0, True)
+        self.assertEqual(cube3.__str__(), '''\
+    sbc
+    vef
+    yhi
+
+lor Ktu BCD
+knq Nwx EFG
+jmp QzA HIJ
+
+    TLM
+    WOP
+    ZRS
+
+    aUV
+    dXY
+    g12
+
+''')
+
+    def test_rotate_y0F(self):  # TODO
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('y', 0, False)
+        self.assertEqual(cube3.__str__(), '''\
+    Tbc
+    Wef
+    Zhi
+
+pmj atu BCD
+qnk dwx EFG
+rol gzA HIJ
+
+    sLM
+    vOP
+    yRS
+
+    KUV
+    NXY
+    Q12
+
+''')
+
+    def test_rotate_y1T(self):  # TODO
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('y', 1, True)
+        self.assertEqual(cube3.__str__(), '''\
+    atc
+    dwf
+    gzi
+
+jkl sLu BCD
+mno vOx EFG
+pqr yRA HIJ
+
+    KUM
+    NXP
+    Q1S
+
+    TbV
+    WeY
+    Zh2
+
+''')
+
+    def test_rotate_y1F(self):  # TODO
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('y', 1, False)
+        self.assertEqual(cube3.__str__(), '''\
+    aUc
+    dXf
+    g1i
+
+jkl sbu BCD
+mno vex EFG
+pqr yhA HIJ
+
+    KtM
+    NwP
+    QzS
+
+    TLV
+    WOY
+    ZR2
+
+''')
+
+    def test_rotate_y2T(self):  # TODO
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('y', 2, True)
+        self.assertEqual(cube3.__str__(), '''\
+    abu
+    dex
+    ghA
+
+jkl stM HEB
+mno vwP IFC
+pqr yzS JGD
+
+    KLV
+    NOY
+    QR2
+
+    TUc
+    WXf
+    Z1i
+
+''')
+
+    def test_rotate_y2F(self):  # TODO
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('y', 2, False)
+        self.assertEqual(cube3.__str__(), '''\
+    abV
+    deY
+    gh2
+
+jkl stc DGJ
+mno vwf CFI
+pqr yzi BEH
+
+    KLu
+    NOx
+    QRA
+
+    TUM
+    WXP
+    Z1S
+
+''')

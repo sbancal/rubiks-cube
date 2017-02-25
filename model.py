@@ -96,6 +96,12 @@ class Cube():
                 else:
                     k = -1
                 self.faces["A"] = np.rot90(self.faces["A"], k)
+            elif item == self.n - 1:
+                if direction:
+                    k = -1
+                else:
+                    k = 1
+                self.faces["E"] = np.rot90(self.faces["E"], k)
             if direction:
                 (self.faces["B"][item,:],
                  self.faces["C"][item,:],
@@ -114,12 +120,38 @@ class Cube():
                  self.faces["D"][item,:],
                  np.flip(np.copy(self.faces["F"][self.n - item - 1,:]),0),
                  np.flip(np.copy(self.faces["B"][item,:]),0))
+        elif axis == 'y':
+            if item == 0:
+                if direction:
+                    k = 1
+                else:
+                    k = -1
+                self.faces["B"] = np.rot90(self.faces["B"], k)
             if item == self.n - 1:
                 if direction:
                     k = -1
                 else:
                     k = 1
-                self.faces["E"] = np.rot90(self.faces["E"], k)
+                self.faces["D"] = np.rot90(self.faces["D"], k)
+            if direction:
+                (self.faces["A"][:,item],
+                 self.faces["C"][:,item],
+                 self.faces["E"][:,item],
+                 self.faces["F"][:,item]) = (
+                 np.copy(self.faces["C"][:,item]),
+                 np.copy(self.faces["E"][:,item]),
+                 np.copy(self.faces["F"][:,item]),
+                 np.copy(self.faces["A"][:,item]))
+            else:
+                (self.faces["A"][:,item],
+                 self.faces["C"][:,item],
+                 self.faces["E"][:,item],
+                 self.faces["F"][:,item]) = (
+                 np.copy(self.faces["F"][:,item]),
+                 np.copy(self.faces["A"][:,item]),
+                 np.copy(self.faces["C"][:,item]),
+                 np.copy(self.faces["E"][:,item]))
+
 
 
     def clear_highlights(self):
