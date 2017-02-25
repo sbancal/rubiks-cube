@@ -1,0 +1,38 @@
+#
+# 3x3x3 fake Cube definition :
+#
+#   A
+# B C D
+#   E
+#   F
+
+
+#A
+abc
+def
+ghi
+
+#B
+jkl
+mno
+pqr
+
+#C
+stu
+vwx
+yzA
+
+#D
+BCD
+EFG
+HIJ
+
+#E
+KLM
+NOP
+QRS
+
+#F
+TUV
+WXY
+Z12

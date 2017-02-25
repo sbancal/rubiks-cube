@@ -27,15 +27,15 @@ C7C8C9
 
 Rotations are as following :
          ___              ___              ___
-       / A /|           / A /|     Z1 →  / A /|
+       / A /|           / A /|     Z0 →  / A /|
       /__ / |          /__ / |    Zn →  /__ / |
-X1 → |   |D |         |   |D |         |   |D |
-X2 → | C | /          | C | /          | C | /
+X0 → |   |D |         |   |D |         |   |D |
+X1 → | C | /          | C | /          | C | /
 Xn → |___|/           |___|/           |___|/
                        ↑↑↑
                        ||Yn
-                       |Y2
-                       Y1
+                       |Y1
+                       Y0
 """
 
 import re
@@ -81,6 +81,46 @@ class Cube():
                     current_face_id += 1
                     current_face_data = ""
         self.clear_highlights()
+
+    def rotate(self, axis, item, direction):
+        '''
+        Rotates one row on the cube
+        axis : 'x' | 'y' | 'z'
+        item : num of the row or column to rotate
+        direction : True is left->right or bottom->up
+        '''
+        if axis == 'x':
+            if item == 0:
+                if direction:
+                    k = 1
+                else:
+                    k = -1
+                self.faces["A"] = np.rot90(self.faces["A"], k)
+            if direction:
+                (self.faces["B"][item,:],
+                 self.faces["C"][item,:],
+                 self.faces["D"][item,:],
+                 self.faces["F"][self.n - item - 1,:]) = (
+                 np.flip(np.copy(self.faces["F"][self.n - item - 1,:]),0),
+                 np.copy(self.faces["B"][item,:]),
+                 np.copy(self.faces["C"][item,:]),
+                 np.flip(np.copy(self.faces["D"][item,:]),0))
+            else:
+                (self.faces["B"][item,:],
+                 self.faces["C"][item,:],
+                 self.faces["D"][item,:],
+                 self.faces["F"][self.n - item - 1,:]) = (
+                 self.faces["C"][item,:],
+                 self.faces["D"][item,:],
+                 np.flip(np.copy(self.faces["F"][self.n - item - 1,:]),0),
+                 np.flip(np.copy(self.faces["B"][item,:]),0))
+            if item == self.n - 1:
+                if direction:
+                    k = -1
+                else:
+                    k = 1
+                self.faces["E"] = np.rot90(self.faces["E"], k)
+
 
     def clear_highlights(self):
         for ltr in "ABCDEF":
