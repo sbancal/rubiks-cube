@@ -27,8 +27,8 @@ C7C8C9
 
 Rotations are as following :
          ___              ___              ___
-       / A /|           / A /|     Z0 →  / A /|
-      /__ / |          /__ / |    Zn →  /__ / |
+       / A /|           / A /|     Zn →  / A /|
+      /__ / |          /__ / |    Z0 →  /__ / |
 X0 → |   |D |         |   |D |         |   |D |
 X1 → | C | /          | C | /          | C | /
 Xn → |___|/           |___|/           |___|/
@@ -151,6 +151,37 @@ class Cube():
                  np.copy(self.faces["A"][:,item]),
                  np.copy(self.faces["C"][:,item]),
                  np.copy(self.faces["E"][:,item]))
+        elif axis == 'z':
+            if item == 0:
+                if direction:
+                    k = -1
+                else:
+                    k = 1
+                self.faces["C"] = np.rot90(self.faces["C"], k)
+            if item == self.n - 1:
+                if direction:
+                    k = 1
+                else:
+                    k = -1
+                self.faces["F"] = np.rot90(self.faces["F"], k)
+            if direction:
+                (self.faces["A"][self.n - item - 1,:],
+                 self.faces["D"][:,item],
+                 self.faces["E"][item,:],
+                 self.faces["B"][:,self.n - item - 1]) = (
+                 np.flip(np.copy(self.faces["B"][:,self.n - item - 1]), 0),
+                 np.copy(self.faces["A"][self.n - item - 1,:]),
+                 np.flip(np.copy(self.faces["D"][:,item]), 0),
+                 np.copy(self.faces["E"][item,:]))
+            else:
+                (self.faces["A"][self.n - item - 1,:],
+                 self.faces["D"][:,item],
+                 self.faces["E"][item,:],
+                 self.faces["B"][:,self.n - item - 1]) = (
+                 np.copy(self.faces["D"][:,item]),
+                 np.flip(np.copy(self.faces["E"][item,:]), 0),
+                 np.copy(self.faces["B"][:,self.n - item - 1]),
+                 np.flip(np.copy(self.faces["A"][self.n - item - 1,:]), 0))
 
 
 
