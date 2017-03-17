@@ -14,5 +14,5 @@ You can solve it with :
 Running unit test :
 
 ~~~ bash
-python -m unittestq
+python -m unittest
 ~~~
