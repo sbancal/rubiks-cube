@@ -135,7 +135,7 @@ pqr yzA HIJ
 
 ''')
 
-    def test_rotate_x1F(self):  # TODO
+    def test_rotate_x1F(self):
         cube3 = model.Cube('test3x3x3.txt')
         cube3.rotate('x', 1, False)
         self.assertEqual(cube3.__str__(), '''\
@@ -223,7 +223,7 @@ jmp QzA HIJ
 
 ''')
 
-    def test_rotate_y0F(self):  # TODO
+    def test_rotate_y0F(self):
         cube3 = model.Cube('test3x3x3.txt')
         cube3.rotate('y', 0, False)
         self.assertEqual(cube3.__str__(), '''\
@@ -245,7 +245,7 @@ rol gzA HIJ
 
 ''')
 
-    def test_rotate_y1T(self):  # TODO
+    def test_rotate_y1T(self):
         cube3 = model.Cube('test3x3x3.txt')
         cube3.rotate('y', 1, True)
         self.assertEqual(cube3.__str__(), '''\
@@ -267,7 +267,7 @@ pqr yRA HIJ
 
 ''')
 
-    def test_rotate_y1F(self):  # TODO
+    def test_rotate_y1F(self):
         cube3 = model.Cube('test3x3x3.txt')
         cube3.rotate('y', 1, False)
         self.assertEqual(cube3.__str__(), '''\
@@ -289,7 +289,7 @@ pqr yhA HIJ
 
 ''')
 
-    def test_rotate_y2T(self):  # TODO
+    def test_rotate_y2T(self):
         cube3 = model.Cube('test3x3x3.txt')
         cube3.rotate('y', 2, True)
         self.assertEqual(cube3.__str__(), '''\
@@ -311,7 +311,7 @@ pqr yzS JGD
 
 ''')
 
-    def test_rotate_y2F(self):  # TODO
+    def test_rotate_y2F(self):
         cube3 = model.Cube('test3x3x3.txt')
         cube3.rotate('y', 2, False)
         self.assertEqual(cube3.__str__(), '''\

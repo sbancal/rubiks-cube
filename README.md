@@ -10,3 +10,9 @@ You can solve it with :
 ./solve_rubik.py random1.txt
 ./solve_rubik.py 6_random1.txt
 ~~~
+
+Running unit test :
+
+~~~ bash
+python -m unittestq
+~~~
