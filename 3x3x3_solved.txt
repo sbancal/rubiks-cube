@@ -1,0 +1,38 @@
+#
+# 3x3x3 solved Cube
+#
+#   A
+# B C D
+#   E
+#   F
+
+
+#A
+rrr
+rrr
+rrr
+
+#B
+ggg
+ggg
+ggg
+
+#C
+bbb
+bbb
+bbb
+
+#D
+kkk
+kkk
+kkk
+
+#E
+yyy
+yyy
+yyy
+
+#F
+ppp
+ppp
+ppp
