@@ -1,6 +1,7 @@
 import unittest
 import model
 
+
 class TestLoadCube(unittest.TestCase):
     def test_load_3x3x3(self):
         cube3 = model.Cube('random1.txt')
@@ -67,6 +68,7 @@ goyggg ogkyog rrrkgo
        oorroo
 
 ''')
+
 
 class TestRotateCube(unittest.TestCase):
     def test_rotate_x0T(self):

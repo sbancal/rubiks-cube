@@ -14,8 +14,10 @@ In case the cube is solved, SolvedCubeException is raised.
 
 import numpy as np
 
+
 class SolvedCubeException(Exception):
     pass
+
 
 class Evaluator():
     def __init__(self, n):
@@ -30,7 +32,7 @@ class Evaluator():
         else:
             start = 1
         for i in range(start, int((n-1)/2)+1):
-            self.eval_indexes.append((first_i-i,last_i+i+1))
+            self.eval_indexes.append((first_i-i, last_i+i+1))
 
         self.color_index = first_i
         self.nb_stickers = n*n*6
@@ -38,8 +40,10 @@ class Evaluator():
     def give_a_note(self, cube):
         """
         return a tuple (a, b, ...) where
-            a is the nb of good stickers summed on all faces according to self.eval_indexes[0]
-            b is the nb of good stickers summed on all faces according to self.eval_indexes[1]
+            + a is the nb of good stickers summed on all faces
+                according to self.eval_indexes[0]
+            + b is the nb of good stickers summed on all faces
+                according to self.eval_indexes[1]
             ...
         It will raise SolvedCubeException when cube is 100% solved
         """
@@ -47,7 +51,10 @@ class Evaluator():
         for current_index in self.eval_indexes:
             current_index_note = 0
             for face in cube.faces.values():
-                nb_good_stickers = len(np.where(face[current_index[0]:current_index[1], current_index[0]:current_index[1]]==face[self.color_index, self.color_index])[0])
+                nb_good_stickers = len(np.where(
+                    face[current_index[0]:current_index[1],
+                         current_index[0]:current_index[1]] ==
+                    face[self.color_index, self.color_index])[0])
                 current_index_note += nb_good_stickers
             note.append(current_index_note)
         if note[-1] == self.nb_stickers:

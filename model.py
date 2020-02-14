@@ -41,14 +41,17 @@ Xn → |___|/           |___|/           |___|/
 import re
 import numpy as np
 
+
 class Cube():
     """
     Describes the Rubik's cube model with :
         + self.n : the dimension
     """
     def __init__(self, from_file):
-        self.faces = {"A":None, "B":None, "C":None, "D":None, "E":None, "F":None}
-        self.highlights = {"A":None, "B":None, "C":None, "D":None, "E":None, "F":None}
+        self.faces = {"A": None, "B": None, "C": None,
+                      "D": None, "E": None, "F": None}
+        self.highlights = {"A": None, "B": None, "C": None,
+                           "D": None, "E": None, "F": None}
         self.n = None
 
         faces = ["A", "B", "C", "D", "E", "F"]
@@ -57,26 +60,31 @@ class Cube():
         current_face_data = ""
         with open(from_file, "r") as f:
             for line in f.readlines():
-                l = re.sub(r"#.*$", "", line).strip()
-                if l == '':
+                line = re.sub(r"#.*$", "", line).strip()
+                if line == '':
                     continue
                 if self.n is None:
-                    self.n = len(l)
+                    self.n = len(line)
                 else:
-                    if len(l) != self.n:
-                        raise Exception("Error parsing '{}' file."
-                            "Doesn't seems to have a clear 'n' : {} != {}".format(
-                                from_file, self.n, len(l)
+                    if len(line) != self.n:
+                        raise Exception(
+                            "Error parsing '{}' file. Doesn't seems to have a "
+                            "clear 'n' : {} != {}".format(
+                                from_file, self.n, len(line)
                             ))
 
                 if current_face_id == 6:
-                    raise Exception("Error: Found too much data lines in '{}'. Expected {}x6 data lines.".format(
-                        from_file, self.n
-                    ))
-                current_face_data += l
+                    raise Exception(
+                        "Error: Found too much data lines in '{}'. "
+                        "Expected {}x6 data lines.".format(
+                            from_file, self.n
+                        ))
+                current_face_data += line
                 current_face_line += 1
                 if current_face_line == self.n:
-                    self.faces[faces[current_face_id]] = np.array(re.findall(r'.', current_face_data)).reshape(self.n, self.n)
+                    self.faces[faces[current_face_id]] = np.array(
+                        re.findall(r'.', current_face_data)) \
+                        .reshape(self.n, self.n)
                     current_face_line = 0
                     current_face_id += 1
                     current_face_data = ""
@@ -103,23 +111,23 @@ class Cube():
                     k = 1
                 self.faces["E"] = np.rot90(self.faces["E"], k)
             if direction:
-                (self.faces["B"][item,:],
-                 self.faces["C"][item,:],
-                 self.faces["D"][item,:],
-                 self.faces["F"][self.n - item - 1,:]) = (
-                 np.flip(np.copy(self.faces["F"][self.n - item - 1,:]),0),
-                 np.copy(self.faces["B"][item,:]),
-                 np.copy(self.faces["C"][item,:]),
-                 np.flip(np.copy(self.faces["D"][item,:]),0))
+                (self.faces["B"][item, :],
+                 self.faces["C"][item, :],
+                 self.faces["D"][item, :],
+                 self.faces["F"][self.n - item - 1, :]) = (
+                 np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
+                 np.copy(self.faces["B"][item, :]),
+                 np.copy(self.faces["C"][item, :]),
+                 np.flip(np.copy(self.faces["D"][item, :]), 0))
             else:
-                (self.faces["B"][item,:],
-                 self.faces["C"][item,:],
-                 self.faces["D"][item,:],
-                 self.faces["F"][self.n - item - 1,:]) = (
-                 self.faces["C"][item,:],
-                 self.faces["D"][item,:],
-                 np.flip(np.copy(self.faces["F"][self.n - item - 1,:]),0),
-                 np.flip(np.copy(self.faces["B"][item,:]),0))
+                (self.faces["B"][item, :],
+                 self.faces["C"][item, :],
+                 self.faces["D"][item, :],
+                 self.faces["F"][self.n - item - 1, :]) = (
+                 self.faces["C"][item, :],
+                 self.faces["D"][item, :],
+                 np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
+                 np.flip(np.copy(self.faces["B"][item, :]), 0))
         elif axis == 'y':
             if item == 0:
                 if direction:
@@ -134,23 +142,23 @@ class Cube():
                     k = 1
                 self.faces["D"] = np.rot90(self.faces["D"], k)
             if direction:
-                (self.faces["A"][:,item],
-                 self.faces["C"][:,item],
-                 self.faces["E"][:,item],
-                 self.faces["F"][:,item]) = (
-                 np.copy(self.faces["C"][:,item]),
-                 np.copy(self.faces["E"][:,item]),
-                 np.copy(self.faces["F"][:,item]),
-                 np.copy(self.faces["A"][:,item]))
+                (self.faces["A"][:, item],
+                 self.faces["C"][:, item],
+                 self.faces["E"][:, item],
+                 self.faces["F"][:, item]) = (
+                 np.copy(self.faces["C"][:, item]),
+                 np.copy(self.faces["E"][:, item]),
+                 np.copy(self.faces["F"][:, item]),
+                 np.copy(self.faces["A"][:, item]))
             else:
-                (self.faces["A"][:,item],
-                 self.faces["C"][:,item],
-                 self.faces["E"][:,item],
-                 self.faces["F"][:,item]) = (
-                 np.copy(self.faces["F"][:,item]),
-                 np.copy(self.faces["A"][:,item]),
-                 np.copy(self.faces["C"][:,item]),
-                 np.copy(self.faces["E"][:,item]))
+                (self.faces["A"][:, item],
+                 self.faces["C"][:, item],
+                 self.faces["E"][:, item],
+                 self.faces["F"][:, item]) = (
+                 np.copy(self.faces["F"][:, item]),
+                 np.copy(self.faces["A"][:, item]),
+                 np.copy(self.faces["C"][:, item]),
+                 np.copy(self.faces["E"][:, item]))
         elif axis == 'z':
             if item == 0:
                 if direction:
@@ -165,25 +173,23 @@ class Cube():
                     k = -1
                 self.faces["F"] = np.rot90(self.faces["F"], k)
             if direction:
-                (self.faces["A"][self.n - item - 1,:],
-                 self.faces["D"][:,item],
-                 self.faces["E"][item,:],
-                 self.faces["B"][:,self.n - item - 1]) = (
-                 np.flip(np.copy(self.faces["B"][:,self.n - item - 1]), 0),
-                 np.copy(self.faces["A"][self.n - item - 1,:]),
-                 np.flip(np.copy(self.faces["D"][:,item]), 0),
-                 np.copy(self.faces["E"][item,:]))
+                (self.faces["A"][self.n - item - 1, :],
+                 self.faces["D"][:, item],
+                 self.faces["E"][item, :],
+                 self.faces["B"][:, self.n - item - 1]) = (
+                 np.flip(np.copy(self.faces["B"][:, self.n - item - 1]), 0),
+                 np.copy(self.faces["A"][self.n - item - 1, :]),
+                 np.flip(np.copy(self.faces["D"][:,  item]), 0),
+                 np.copy(self.faces["E"][item, :]))
             else:
-                (self.faces["A"][self.n - item - 1,:],
-                 self.faces["D"][:,item],
-                 self.faces["E"][item,:],
-                 self.faces["B"][:,self.n - item - 1]) = (
-                 np.copy(self.faces["D"][:,item]),
-                 np.flip(np.copy(self.faces["E"][item,:]), 0),
-                 np.copy(self.faces["B"][:,self.n - item - 1]),
-                 np.flip(np.copy(self.faces["A"][self.n - item - 1,:]), 0))
-
-
+                (self.faces["A"][self.n - item - 1, :],
+                 self.faces["D"][:, item],
+                 self.faces["E"][item, :],
+                 self.faces["B"][:, self.n - item - 1]) = (
+                 np.copy(self.faces["D"][:, item]),
+                 np.flip(np.copy(self.faces["E"][item, :]), 0),
+                 np.copy(self.faces["B"][:, self.n - item - 1]),
+                 np.flip(np.copy(self.faces["A"][self.n - item - 1, :]), 0))
 
     def clear_highlights(self):
         for ltr in "ABCDEF":
@@ -200,10 +206,11 @@ class Cube():
         def render_line(ltr, i):
             line = ""
             for j in range(self.n):
-                if self.highlights[ltr][i,j]:
-                    line += "\033[0;1;93m{}\033[0m".format(self.faces[ltr][i,j])
+                if self.highlights[ltr][i, j]:
+                    line += "\033[0;1;93m{}\033[0m" \
+                        .format(self.faces[ltr][i, j])
                 else:
-                    line += self.faces[ltr][i,j]
+                    line += self.faces[ltr][i, j]
             return line
 
         white = " " * self.n
@@ -212,7 +219,9 @@ class Cube():
             s += "{white} {a}\n".format(white=white, a=render_line("A", i))
         s += "\n"
         for i in range(self.n):
-            s += "{b} {c} {d}\n".format(b=render_line("B", i), c=render_line("C", i), d=render_line("D", i))
+            s += "{b} {c} {d}\n" \
+              .format(b=render_line("B", i), c=render_line("C", i),
+                      d=render_line("D", i))
         s += "\n"
         for i in range(self.n):
             s += "{white} {e}\n".format(white=white, e=render_line("E", i))

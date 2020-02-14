@@ -1,7 +1,7 @@
 import unittest
-import numpy as np
 from model import Cube
 from evaluator import Evaluator, SolvedCubeException
+
 
 class TestEvaluatorEvalMatrices(unittest.TestCase):
     def test_eval_indexes_2x2x2(self):
