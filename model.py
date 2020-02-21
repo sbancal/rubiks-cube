@@ -79,11 +79,11 @@ class Cube():
                         "Expected {}x6 data lines.".format(
                             from_file, self.n
                         ))
-                current_face_data += line
+                current_face_data += line.strip()
                 current_face_line += 1
                 if current_face_line == self.n:
-                    self.faces[faces[current_face_id]] = np.array(
-                        re.findall(r'.', current_face_data)) \
+                    self.faces[faces[current_face_id]] = \
+                        np.array(list(current_face_data)) \
                         .reshape(self.n, self.n)
                     current_face_line = 0
                     current_face_id += 1
