@@ -18,7 +18,7 @@ def parse_arguments():
         "filename": None,
     }
     parser = argparse.ArgumentParser(description="Solves rubik's cube")
-    parser.add_argument("filename", metavar="f", type=str,
+    parser.add_argument("filename", type=str,
                         help="a filename containing a Rubik's cube to solve")
     args = parser.parse_args()
     options["filename"] = args.filename
@@ -26,8 +26,8 @@ def parse_arguments():
 
 
 if __name__ == "__main__":
-    print("Going to solve Rubik's cube ...")
     options = parse_arguments()
+    print("Going to solve Rubik's cube ...")
     cube = model.Cube(options["filename"])
     print(cube)
     print("Done. (well not yet ;)")
