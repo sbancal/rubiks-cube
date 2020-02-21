@@ -90,7 +90,7 @@ class Cube():
                     current_face_data = ""
         self.clear_highlights()
 
-    def rotate(self, axis, item, direction):
+    def rotate(self, axis, item, direction, highlight=False):
         '''
         Rotates one row on the cube
         axis : 'x' | 'y' | 'z'
@@ -104,12 +104,16 @@ class Cube():
                 else:
                     k = -1
                 self.faces["A"] = np.rot90(self.faces["A"], k)
+                if highlight:
+                    self.highlights["A"][:, :] = True
             elif item == self.n - 1:
                 if direction:
                     k = -1
                 else:
                     k = 1
                 self.faces["E"] = np.rot90(self.faces["E"], k)
+                if highlight:
+                    self.highlights["E"][:, :] = True
             if direction:
                 (
                     self.faces["B"][item, :],
@@ -134,6 +138,11 @@ class Cube():
                     np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
                     np.flip(np.copy(self.faces["B"][item, :]), 0)
                 )
+            if highlight:
+                self.highlights["B"][item, :] = True
+                self.highlights["C"][item, :] = True
+                self.highlights["D"][item, :] = True
+                self.highlights["F"][self.n - item - 1, :] = True
         elif axis == 'y':
             if item == 0:
                 if direction:
@@ -141,12 +150,16 @@ class Cube():
                 else:
                     k = -1
                 self.faces["B"] = np.rot90(self.faces["B"], k)
+                if highlight:
+                    self.highlights["B"][:, :] = True
             if item == self.n - 1:
                 if direction:
                     k = -1
                 else:
                     k = 1
                 self.faces["D"] = np.rot90(self.faces["D"], k)
+                if highlight:
+                    self.highlights["D"][:, :] = True
             if direction:
                 (
                     self.faces["A"][:, item],
@@ -171,6 +184,11 @@ class Cube():
                     np.copy(self.faces["C"][:, item]),
                     np.copy(self.faces["E"][:, item])
                 )
+            if highlight:
+                self.highlights["A"][:, item] = True
+                self.highlights["C"][:, item] = True
+                self.highlights["E"][:, item] = True
+                self.highlights["F"][:, item] = True
         elif axis == 'z':
             if item == 0:
                 if direction:
@@ -178,12 +196,16 @@ class Cube():
                 else:
                     k = 1
                 self.faces["C"] = np.rot90(self.faces["C"], k)
+                if highlight:
+                    self.highlights["C"][:, :] = True
             if item == self.n - 1:
                 if direction:
                     k = 1
                 else:
                     k = -1
                 self.faces["F"] = np.rot90(self.faces["F"], k)
+                if highlight:
+                    self.highlights["F"][:, :] = True
             if direction:
                 (
                     self.faces["A"][self.n - item - 1, :],
@@ -208,6 +230,12 @@ class Cube():
                     np.copy(self.faces["B"][:, self.n - item - 1]),
                     np.flip(np.copy(self.faces["A"][self.n - item - 1, :]), 0)
                 )
+            if highlight:
+                self.highlights["A"][self.n - item - 1, :] = True
+                self.highlights["D"][:, item] = True
+                self.highlights["E"][item, :] = True
+                self.highlights["B"][:, self.n - item - 1] = True
+
 
     def clear_highlights(self):
         for ltr in "ABCDEF":
