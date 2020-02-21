@@ -194,13 +194,6 @@ class Cube():
     def clear_highlights(self):
         for ltr in "ABCDEF":
             self.highlights[ltr] = np.full((self.n, self.n), False)
-        # points = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), )
-        # for ltr in "ABCDEF":
-        #     for p in points:
-        #         try:
-        #             self.highlights[ltr][p[0],p[1]] = True
-        #         except IndexError:
-        #             pass
 
     def __str__(self):
         def render_line(ltr, i):
