@@ -111,23 +111,29 @@ class Cube():
                     k = 1
                 self.faces["E"] = np.rot90(self.faces["E"], k)
             if direction:
-                (self.faces["B"][item, :],
-                 self.faces["C"][item, :],
-                 self.faces["D"][item, :],
-                 self.faces["F"][self.n - item - 1, :]) = (
-                 np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
-                 np.copy(self.faces["B"][item, :]),
-                 np.copy(self.faces["C"][item, :]),
-                 np.flip(np.copy(self.faces["D"][item, :]), 0))
+                (
+                    self.faces["B"][item, :],
+                    self.faces["C"][item, :],
+                    self.faces["D"][item, :],
+                    self.faces["F"][self.n - item - 1, :]
+                 ) = (
+                    np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
+                    np.copy(self.faces["B"][item, :]),
+                    np.copy(self.faces["C"][item, :]),
+                    np.flip(np.copy(self.faces["D"][item, :]), 0)
+                 )
             else:
-                (self.faces["B"][item, :],
-                 self.faces["C"][item, :],
-                 self.faces["D"][item, :],
-                 self.faces["F"][self.n - item - 1, :]) = (
-                 self.faces["C"][item, :],
-                 self.faces["D"][item, :],
-                 np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
-                 np.flip(np.copy(self.faces["B"][item, :]), 0))
+                (
+                    self.faces["B"][item, :],
+                    self.faces["C"][item, :],
+                    self.faces["D"][item, :],
+                    self.faces["F"][self.n - item - 1, :]
+                ) = (
+                    self.faces["C"][item, :],
+                    self.faces["D"][item, :],
+                    np.flip(np.copy(self.faces["F"][self.n - item - 1, :]), 0),
+                    np.flip(np.copy(self.faces["B"][item, :]), 0)
+                )
         elif axis == 'y':
             if item == 0:
                 if direction:
@@ -142,23 +148,29 @@ class Cube():
                     k = 1
                 self.faces["D"] = np.rot90(self.faces["D"], k)
             if direction:
-                (self.faces["A"][:, item],
-                 self.faces["C"][:, item],
-                 self.faces["E"][:, item],
-                 self.faces["F"][:, item]) = (
-                 np.copy(self.faces["C"][:, item]),
-                 np.copy(self.faces["E"][:, item]),
-                 np.copy(self.faces["F"][:, item]),
-                 np.copy(self.faces["A"][:, item]))
+                (
+                    self.faces["A"][:, item],
+                    self.faces["C"][:, item],
+                    self.faces["E"][:, item],
+                    self.faces["F"][:, item]
+                ) = (
+                    np.copy(self.faces["C"][:, item]),
+                    np.copy(self.faces["E"][:, item]),
+                    np.copy(self.faces["F"][:, item]),
+                    np.copy(self.faces["A"][:, item])
+                )
             else:
-                (self.faces["A"][:, item],
-                 self.faces["C"][:, item],
-                 self.faces["E"][:, item],
-                 self.faces["F"][:, item]) = (
-                 np.copy(self.faces["F"][:, item]),
-                 np.copy(self.faces["A"][:, item]),
-                 np.copy(self.faces["C"][:, item]),
-                 np.copy(self.faces["E"][:, item]))
+                (
+                    self.faces["A"][:, item],
+                    self.faces["C"][:, item],
+                    self.faces["E"][:, item],
+                    self.faces["F"][:, item]
+                ) = (
+                    np.copy(self.faces["F"][:, item]),
+                    np.copy(self.faces["A"][:, item]),
+                    np.copy(self.faces["C"][:, item]),
+                    np.copy(self.faces["E"][:, item])
+                )
         elif axis == 'z':
             if item == 0:
                 if direction:
@@ -173,23 +185,29 @@ class Cube():
                     k = -1
                 self.faces["F"] = np.rot90(self.faces["F"], k)
             if direction:
-                (self.faces["A"][self.n - item - 1, :],
-                 self.faces["D"][:, item],
-                 self.faces["E"][item, :],
-                 self.faces["B"][:, self.n - item - 1]) = (
-                 np.flip(np.copy(self.faces["B"][:, self.n - item - 1]), 0),
-                 np.copy(self.faces["A"][self.n - item - 1, :]),
-                 np.flip(np.copy(self.faces["D"][:,  item]), 0),
-                 np.copy(self.faces["E"][item, :]))
+                (
+                    self.faces["A"][self.n - item - 1, :],
+                    self.faces["D"][:, item],
+                    self.faces["E"][item, :],
+                    self.faces["B"][:, self.n - item - 1]
+                ) = (
+                    np.flip(np.copy(self.faces["B"][:, self.n - item - 1]), 0),
+                    np.copy(self.faces["A"][self.n - item - 1, :]),
+                    np.flip(np.copy(self.faces["D"][:,  item]), 0),
+                    np.copy(self.faces["E"][item, :])
+                )
             else:
-                (self.faces["A"][self.n - item - 1, :],
-                 self.faces["D"][:, item],
-                 self.faces["E"][item, :],
-                 self.faces["B"][:, self.n - item - 1]) = (
-                 np.copy(self.faces["D"][:, item]),
-                 np.flip(np.copy(self.faces["E"][item, :]), 0),
-                 np.copy(self.faces["B"][:, self.n - item - 1]),
-                 np.flip(np.copy(self.faces["A"][self.n - item - 1, :]), 0))
+                (
+                    self.faces["A"][self.n - item - 1, :],
+                    self.faces["D"][:, item],
+                    self.faces["E"][item, :],
+                    self.faces["B"][:, self.n - item - 1]
+                ) = (
+                    np.copy(self.faces["D"][:, item]),
+                    np.flip(np.copy(self.faces["E"][item, :]), 0),
+                    np.copy(self.faces["B"][:, self.n - item - 1]),
+                    np.flip(np.copy(self.faces["A"][self.n - item - 1, :]), 0)
+                )
 
     def clear_highlights(self):
         for ltr in "ABCDEF":
