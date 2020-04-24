@@ -466,3 +466,70 @@ aqr yzA HIQ
     2YV
 
 ''')
+
+
+class TestRotateCubeWithHighlight(unittest.TestCase):
+    def test_rotate_x0TT(self):
+        h = '\033[0;1;93m'
+        c = '\033[0m'
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('x', 0, True, True)
+        self.assertEqual(cube3.__str__(), f'''\
+    {h}c{c}{h}f{c}{h}i{c}
+    {h}b{c}{h}e{c}{h}h{c}
+    {h}a{c}{h}d{c}{h}g{c}
+
+{h}2{c}{h}1{c}{h}Z{c} {h}j{c}{h}k{c}{h}l{c} {h}s{c}{h}t{c}{h}u{c}
+mno vwx EFG
+pqr yzA HIJ
+
+    KLM
+    NOP
+    QRS
+
+    TUV
+    WXY
+    {h}D{c}{h}C{c}{h}B{c}
+
+''')
+        self.assertEqual(cube3.__str__(), '''\
+    cfi
+    beh
+    adg
+
+21Z jkl stu
+mno vwx EFG
+pqr yzA HIJ
+
+    KLM
+    NOP
+    QRS
+
+    TUV
+    WXY
+    DCB
+
+''')
+
+    def test_rotate_x0TT_clear(self):
+        cube3 = model.Cube('test3x3x3.txt')
+        cube3.rotate('x', 0, True, True)
+        cube3.clear_highlights()
+        self.assertEqual(cube3.__str__(), '''\
+    cfi
+    beh
+    adg
+
+21Z jkl stu
+mno vwx EFG
+pqr yzA HIJ
+
+    KLM
+    NOP
+    QRS
+
+    TUV
+    WXY
+    DCB
+
+''')
