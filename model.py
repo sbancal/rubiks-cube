@@ -16,9 +16,11 @@ File's format should look like :
 A1A2A3
 A4A5A6
 A7A8A9
+
 B1B2B3
 B4B5B6
 B7B8B9
+
 C1C2C3
 C4C5C6
 C7C8C9
@@ -235,7 +237,6 @@ class Cube():
                 self.highlights["D"][:, item] = True
                 self.highlights["E"][item, :] = True
                 self.highlights["B"][:, self.n - item - 1] = True
-
 
     def clear_highlights(self):
         for ltr in "ABCDEF":
